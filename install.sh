@@ -35,6 +35,9 @@ if [ "$1" == "install" ]; then
 	echo "... Extract mod_rpaf ..."
 	tar xzfv mod_rpaf-0.6.tar.gz > /dev/null 2>&1	
 	
+	echo "... Install PyYAML ..."
+	easy_install PyYAML  
+	
 	echo "... Proceed with the installation ..."
 	/usr/bin/python ./nginxinstaller install
 	

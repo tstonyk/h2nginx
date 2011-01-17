@@ -53,45 +53,19 @@ proc = subprocess.Popen("/usr/local/cpanel/bin/apache_conf_distiller --update > 
 output = proc.communicate()
 time.sleep(5)
 
-#rotatescript = """cat >> "/etc/logrotate.d/nginx" <<EOF
-#
-#/var/log/nginx/*log {
-#    missingok
-#    notifempty
-#    sharedscripts
-#    postrotate
-#        /bin/kill -HUP \`cat /var/run/nginx.pid 2>/dev/null\` 2> /dev/null || true
-#    endscript
-#}
-#EOF""" 
-
-#proc = subprocess.Popen(rotatescript, shell=True)
-#output = proc.communicate()
-
-#ncheckservd = "service[nginx]=x,x,x,service nginx restart,nginx,root"
-
-#nchkservdf = open('/etc/chkserv.d/nginx', 'w')
-
-#nchkservdf.write(ncheckservd)
-
-#nchkservdf.close()
-
-
-print " gettin there "  
-
+## Removed nginx logrotate script
+print "Adjusting cPanel/Apache ports to :8081"  
 
 proc = subprocess.Popen("sed -i 's/localhost/localhost:8081/g' /etc/init.d/httpd", shell=True)
 output = proc.communicate()
 
 proc = subprocess.Popen("sed -i 's/localhost/localhost:8081/g' /usr/sbin/httpd", shell=True)
 output = proc.communicate()
-
-
 proc = subprocess.Popen("sed -i 's/apache_port=0.0.0.0:80$/apache_port=0.0.0.0:8081/' /var/cpanel/cpanel.config", shell=True)
 output = proc.communicate()
+
+print "Updating cPanel Tweak Setting, please hold to yer pants"
 subprocess.Popen("/usr/local/cpanel/whostmgr/bin/whostmgr2 --updatetweaksettings > /dev/null 2>&1", shell=True)
 
 time.sleep(10)
-#proc = subprocess.Popen("/etc/init.d/nginx restart > /dev/null 2>&1", shell=True)
-#output = proc.communicate()
 print " Installation Complete -- run /etc/init.d/nginx restart to start nginx"
