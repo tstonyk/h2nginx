@@ -4,6 +4,11 @@
 
 This is modification of Blargams nginx installer modified to work with nginx RPMs from EPEL and centos.alt.ru releases.
 
+First install the nginx via RPM and then run the installer to create reverse-proxying nginx vhosts for all cPanel accounts
+on the server, place cPanel hooks and configure Apache to run on port 8081.
+
+
+
 ----------- INSTALLL -----------------
 
 sh ./install.sh install
