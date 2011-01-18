@@ -70,6 +70,18 @@ if [ "$1" == "install" ]; then
 	
 	echo " h2nginx installer :::::: "
 	
+	echo ".... Checking for your WHM access hash ...."
+	if [ ! -f "/root/.accesshash" ]; then
+		echo "You don't have an access hash generated for your account, do enable this please follow the following steps:"
+		echo  "> Login to your WHM"
+		echo  "> Go to WHM > Cluster/Remote Access >> Setup Remote Access Key"
+		echo  "> Click on \"Generate New Key\" button"
+		echo  "> Rerun the installer "
+		exit 1;
+	fi
+	
+	echo "... Proceed with the installation ...."
+	
 	_addRepo
 	echo "... Let's install nginx firest ...."
 	yum -y install --enablerepo=CentALT nginx 	
