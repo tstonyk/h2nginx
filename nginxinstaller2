@@ -9,9 +9,9 @@ sys.path.append('/scripts/')
 import createvhosts
 import xmlapi
 
-
+# mod_rpaf include is now going to the pre_main_global.conf
 def findrpaf(ioru):
-        f=open('/usr/local/apache/conf/httpd.conf', 'r')
+        f=open('/usr/local/apache/conf/includes/pre_main_global.conf', 'r')
         fl = f.readlines()
         f.close
         include="Include \"/usr/local/apache/conf/includes/rpaf.conf\"\n"
@@ -20,13 +20,13 @@ def findrpaf(ioru):
                         pass
                 if ioru == "uninstall":
                         fl.remove(include)
-                        f=open('/usr/local/apache/conf/httpd.conf', 'w')
+                        f=open('/usr/local/apache/conf/includes/pre_main_global.conf', 'w')
                         f.writelines(fl)
                         f.close
         else:
                 if ioru == "install":
-                        fl.insert(29, include)
-                        f=open('/usr/local/apache/conf/httpd.conf', 'w')
+                        fl.insert(0, include)
+                        f=open('/usr/local/apache/conf/includes/pre_main_global.conf', 'w')
                         f.writelines(fl)
                         f.close
                 if ioru == "uninstall":
