@@ -37,7 +37,7 @@ function _removeRepo {
 }
 
 function _rpmforge {
-	if [ -f "/etc/yum.repos.d/rpmforge.repo" ]; then
+	if [ ! -f "/etc/yum.repos.d/rpmforge.repo" ]; then
 	           #
                # Create the rpmforge.repos file in /etc/yum.repos.d/
                #-------------------------------------------------
@@ -72,7 +72,7 @@ if [ "$1" == "install" ]; then
 	
 	_addRepo
 	echo "... Let's install nginx firest ...."
-	yum -y install --enablerepo=CentALT nginx 
+	yum -y install --enablerepo=CentALT nginx 	
 	
 	echo ""
 	echo ""
@@ -90,7 +90,7 @@ if [ "$1" == "install" ]; then
 	echo ""
 	echo "... Install PyYAML ..."
 	_rpmforge
-	yum --enablerepo=rpmforge -y install libyaml
+	yum --enablerepo=rpmforge -y install libyaml > /dev/null 2>&1	
 	easy_install PyYAML  
 	_removerpmforge
 	
