@@ -167,7 +167,9 @@ output = proc.communicate()
 print "... Inserting bytes_log support to nginx.conf ...."
 bsupport = 'log_format bytes_log "$msec $bytes_sent .";'
 nconf = open ( '/etc/nginx/nginx.conf', 'w')
-nconf.insert( '25', bsupport)
+nlconf = nconf.readlines()
+nlconf.insert( '25', bsupport)
+nconf.writelines( nlconf )
 nconf.close
 
 print "Install Apache module mod_rpaf-0.6..."

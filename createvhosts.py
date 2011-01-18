@@ -82,7 +82,7 @@ def writeconfshared(user,domain,docroot,passedip, alias,aliasstring):
 		pass
 	else:
 		domainvhost = open ('/etc/nginx/conf.d/' + domain +".conf", 'w')
-     	domainvhost.writelines( sharedipvhost )
+	     	domainvhost.writelines( sharedipvhost )
 		domainvhost.close()
 
 #def redirectfunc():
