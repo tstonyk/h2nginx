@@ -36,6 +36,23 @@ function _removeRepo {
 	fi
 }
 
+function _rpmforge {
+	               #
+               # Create the rpmforge.repos file in /etc/yum.repos.d/
+               #-------------------------------------------------
+               echo "[rpmforge]" > /etc/yum.repos.d/rpmforge.repo
+               echo "name = Red Hat Enterprise $releasever - RPMforge.net - dag" >> /etc/yum.repos.d/rpmforge.repo
+               echo "baseurl = http://apt.sw.be/redhat/el5/en/$basearch/dag" >> /etc/yum.repos.d/rpmforge.repo
+               echo "mirrorlist = http://rh-mirror.linux.iastate.edu/pub/dag/redhat/el5/en/mirrors-rpmforge" >> /etc/yum.repos.d/rpmforge.repo
+               echo "enabled = 0" >> /etc/yum.repos.d/rpmforge.repo
+               echo "gpgkey = file:///etc/pki/rpm-gpg/RPM-GPG-KEY-rpmforge-dag" >> /etc/yum.repos.d/rpmforge.repo
+               echo "gpgcheck = 0" >> /etc/yum.repos.d/rpmforge.repo
+
+}
+function _removerpmforge {
+	echo "... Removing RPMForge installation ..."
+	rm -f /etc/yum.repos.d/rpmforge.repo
+}
 function _checkPython {
 	$easy_install = $(which easy_install)
 	
@@ -69,13 +86,16 @@ if [ "$1" == "install" ]; then
 	_checkPython
 	
 	echo "... Install PyYAML ..."
+	_rpmforge
+	yum --enablerepo=rpmforge -y install libyaml
 	easy_install PyYAML  
+	_removerpmforge
 	
 	echo "... Proceed with the installation ..."
 	/usr/bin/python ./nginxinstaller install
 	
 elif [ "$1" == "uninstall" ]; then
-	echo "... Remove nginx repository ..."
+	echo "... Remove CentALT repository ..."
 	_removeRepo
 	
 	echo "... Remove nginx installation ...."
