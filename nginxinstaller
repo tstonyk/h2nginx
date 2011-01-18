@@ -164,6 +164,12 @@ print "Generating vhosts..."
 proc = subprocess.Popen("/scripts/createvhosts.py", shell=True, stdout=None)
 output = proc.communicate()
 
+print "... Inserting bytes_log support to nginx.conf ...."
+bsupport = 'log_format bytes_log "$msec $bytes_sent .";'
+nconf = open ( '/etc/nginx/nginx.conf', 'w')
+nconf.insert( '25', bsupport)
+nconf.close
+
 print "Install Apache module mod_rpaf-0.6..."
 proc = subprocess.Popen("/usr/local/apache/bin/apxs -i -c -n mod_rpaf-2.0.so mod_rpaf-2.0.c > /dev/null 2>&1", shell=True, cwd=srcpath + "/mod_rpaf-0.6")
 output = proc.communicate()

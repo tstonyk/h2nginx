@@ -58,7 +58,7 @@ function _checkPython {
 	$easy_install = $(which easy_install)
 	
 	if [ ! -f "$easy_install" ]; then
-		yum -y install python-setuptools
+		yum -y install python-setuptools > /dev/null 2>&1	
 	fi
 }
 #
@@ -84,7 +84,7 @@ if [ "$1" == "install" ]; then
 	
 	_addRepo
 	echo "... Let's install nginx firest ...."
-	yum -y install --enablerepo=CentALT nginx 	
+	yum -y install --enablerepo=CentALT nginx-stable
 	
 	echo ""
 	echo ""
@@ -112,9 +112,10 @@ if [ "$1" == "install" ]; then
 elif [ "$1" == "uninstall" ]; then
 	echo "... Remove CentALT repository ..."
 	_removeRepo
+	-removerpmforge
 	
 	echo "... Remove nginx installation ...."
-	yum remove nginx
+	yum remove nginx-stable libyaml
 	
 	echo " "
 	echo "... Remove cPanel hooks ..."

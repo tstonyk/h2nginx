@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+﻿#!/usr/bin/env python
 import yaml
 import os
 from xml.dom import minidom
@@ -41,12 +41,12 @@ def writeconfded(user, domain, docroot, passedip, alias, aliasstring):
         }""" % (domain, alias, passedip, domain + "-bytes_log", domain, docroot, domain, domain, aliasstring, passedip, passedip, passedip)
 	if not os.path.exists( '/etc/nginx/conf.d'):
 		os.makedirs('/etc/nginx/conf.d')
-        if os.path.exists( '/etc/nginx/staticvhosts/' + domain):
+        if os.path.exists( '/etc/nginx/staticvhosts/' + domain+".conf"):
                 pass
         else:
-                domainvhost = open ('/etc/nginx/conf.d/' + domain, 'w')
-                domainvhost.writelines( dedipvhost )
-                domainvhost.close()
+			domainvhost = open ('/etc/nginx/conf.d/' + domain +".conf", 'w')
+			domainvhost.writelines( dedipvhost )
+			domainvhost.close()
 
 def writeconfshared(user,domain,docroot,passedip, alias,aliasstring):
         sharedipvhost = """server {
@@ -78,10 +78,10 @@ def writeconfshared(user,domain,docroot,passedip, alias,aliasstring):
         }""" % (domain, alias, domain + "-bytes_log", domain, docroot, domain, domain, aliasstring, passedip)
 	if not os.path.exists( '/etc/nginx/conf.d'):
 		os.makedirs('/etc/nginx/conf.d')
-	if os.path.exists( '/etc/nginx/staticvhosts/' + domain):
+	if os.path.exists( '/etc/nginx/staticvhosts/' + domain +".conf"):
 		pass
 	else:
-		domainvhost = open ('/etc/nginx/conf.d/' + domain, 'w')
+		domainvhost = open ('/etc/nginx/conf.d/' + domain +".conf", 'w')
      	domainvhost.writelines( sharedipvhost )
 		domainvhost.close()
 
