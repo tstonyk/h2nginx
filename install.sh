@@ -13,7 +13,7 @@ if [ ! -f "/etc/redhat-release" ]; then
 	exit 0;
 fi
 
-if [ ! -f "/usr/local/cpanel/cpanel_version" ]; then
+if [ ! -f "/usr/local/cpanel/version" ]; then
 	echo "cPanel is not installed on this server";
 	exit 0;
 fi

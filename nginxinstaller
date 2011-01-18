@@ -8,7 +8,7 @@ sys.path.append('/scripts/')
 currentdir=os.getcwd()
 
 def findrpaf(ioru):
-        f=open('/usr/local/apache/conf/httpd.conf', 'r')
+        f=open('/usr/local/apache/conf/includes/pre_main_global.conf', 'r')
         fl = f.readlines()
         f.close
         include="Include \"/usr/local/apache/conf/includes/rpaf.conf\"\n"
@@ -17,13 +17,13 @@ def findrpaf(ioru):
                         pass
                 if ioru == "uninstall":
                         fl.remove(include)
-                        f=open('/usr/local/apache/conf/httpd.conf', 'w')
+                        f=open('/usr/local/apache/conf/includes/pre_main_global.conf', 'w')
                         f.writelines(fl)
                         f.close
         else:
                 if ioru == "install":
-                        fl.insert(29, include)
-                        f=open('/usr/local/apache/conf/httpd.conf', 'w')
+                        fl.insert(0, include)
+                        f=open('/usr/local/apache/conf/includes/pre_main_global.conf', 'w')
                         f.writelines(fl)
                         f.close
                 if ioru == "uninstall":
@@ -31,12 +31,9 @@ def findrpaf(ioru):
 
 
 
+
 if len(sys.argv) > 1:
 	if sys.argv[1] == "uninstall":
-		subprocess.Popen("rm -rf /usr/local/src/mod_rpaf-0.6", shell=True)
-		subprocess.Popen("rm -rf /usr/local/src/nginx-0.8.41", shell=True)
-		subprocess.Popen("rm -rf /usr/local/src/pcre-8.00", shell=True)
-		subprocess.Popen("rm -rf /usr/local/src/setuptools-0.6c11", shell=True)
 		subprocess.Popen("rm -f /scripts/postwwwacct", shell=True)
 		subprocess.Popen("rm -f /scripts/iplist.py", shell=True)
 		subprocess.Popen("rm -f /scripts/createvhosts.py", shell=True)

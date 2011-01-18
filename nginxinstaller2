@@ -53,7 +53,7 @@ proc = subprocess.Popen("/usr/local/cpanel/bin/apache_conf_distiller --update > 
 output = proc.communicate()
 time.sleep(5)
 
-## Removed nginx logrotate script
+# Removed nginx logrotate script
 print "Adjusting cPanel/Apache ports to :8081"  
 
 proc = subprocess.Popen("sed -i 's/localhost/localhost:8081/g' /etc/init.d/httpd", shell=True)
