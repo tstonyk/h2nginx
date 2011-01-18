@@ -23,8 +23,8 @@ function _addRepo {
 
 if [ ! -f "/etc/yum.repos.d/centalt.repo" ]; then 
 	echo "[CentALT]" >> /etc/yum.repos.d/centalt.repo
-	echo "name=CentALT Packages for Enterprise Linux 5 - $basearch" >> /etc/yum.repos.d/centalt.repo
-	echo "baseurl=http://centos.alt.ru/repository/centos/5/$basearch/" >> /etc/yum.repos.d/centalt.repo
+	echo "name=CentALT Packages for Enterprise Linux 5 - \$basearch" >> /etc/yum.repos.d/centalt.repo
+	echo "baseurl=http://centos.alt.ru/repository/centos/5/\$basearch/" >> /etc/yum.repos.d/centalt.repo
 	echo "enabled=0" >> /etc/yum.repos.d/centalt.repo
 	echo "gpgcheck=0" >> /etc/yum.repos.d/centalt.repo
 fi
@@ -37,17 +37,18 @@ function _removeRepo {
 }
 
 function _rpmforge {
-	               #
+	if [ -f "/etc/yum.repos.d/rpmforge.repo" ]; then
+	           #
                # Create the rpmforge.repos file in /etc/yum.repos.d/
                #-------------------------------------------------
                echo "[rpmforge]" > /etc/yum.repos.d/rpmforge.repo
-               echo "name = Red Hat Enterprise $releasever - RPMforge.net - dag" >> /etc/yum.repos.d/rpmforge.repo
-               echo "baseurl = http://apt.sw.be/redhat/el5/en/$basearch/dag" >> /etc/yum.repos.d/rpmforge.repo
+               echo "name = Red Hat Enterprise \$releasever - RPMforge.net - dag" >> /etc/yum.repos.d/rpmforge.repo
+               echo "baseurl = http://apt.sw.be/redhat/el5/en/\$basearch/dag" >> /etc/yum.repos.d/rpmforge.repo
                echo "mirrorlist = http://rh-mirror.linux.iastate.edu/pub/dag/redhat/el5/en/mirrors-rpmforge" >> /etc/yum.repos.d/rpmforge.repo
                echo "enabled = 0" >> /etc/yum.repos.d/rpmforge.repo
                echo "gpgkey = file:///etc/pki/rpm-gpg/RPM-GPG-KEY-rpmforge-dag" >> /etc/yum.repos.d/rpmforge.repo
                echo "gpgcheck = 0" >> /etc/yum.repos.d/rpmforge.repo
-
+	fi
 }
 function _removerpmforge {
 	echo "... Removing RPMForge installation ..."
@@ -74,6 +75,7 @@ if [ "$1" == "install" ]; then
 	yum -y install --enablerepo=CentALT nginx 
 	
 	echo ""
+	echo ""
 	echo " Preparing the installation"
 	echo " "
 	echo "... Downloading mod rpaf from stderr.net ..." 
@@ -85,6 +87,7 @@ if [ "$1" == "install" ]; then
 	echo "... Check for python-setup tools install ..."
 	_checkPython
 	
+	echo ""
 	echo "... Install PyYAML ..."
 	_rpmforge
 	yum --enablerepo=rpmforge -y install libyaml
