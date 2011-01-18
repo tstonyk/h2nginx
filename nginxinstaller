@@ -165,12 +165,12 @@ proc = subprocess.Popen("/scripts/createvhosts.py", shell=True, stdout=None)
 output = proc.communicate()
 
 print "... Inserting bytes_log support to nginx.conf ...."
-bsupport = 'log_format bytes_log "$msec $bytes_sent .";'
+bsupport = '\tlog_format bytes_log "$msec $bytes_sent .";\n'
 nconf = open ( '/etc/nginx/nginx.conf', 'r')
 nlconf = nconf.readlines()
 nconf.close
 
-nlconf.insert( '25', bsupport)
+nlconf.insert( 25, bsupport)
 ngconf = open ( '/etc/nginx/nginx.conf', 'w')
 ngconf.writelines( nlconf )
 ngconf.close
