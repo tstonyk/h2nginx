@@ -22,11 +22,11 @@ fi
 function _addRepo {
 
 if [ ! -f "/etc/yum.repos.d/centalt.repo" ]; then 
-	echo "	[CentALT] 
-			name=CentALT Packages for Enterprise Linux 5 - $basearch 
-			baseurl=http://centos.alt.ru/repository/centos/5/$basearch/
-			enabled=0 
-			gpgcheck=0" >> /etc/yum.repos.d/centalt.repo
+	echo "[CentALT]" >> /etc/yum.repos.d/centalt.repo
+	echo "name=CentALT Packages for Enterprise Linux 5 - $basearch" >> /etc/yum.repos.d/centalt.repo
+	echo "baseurl=http://centos.alt.ru/repository/centos/5/$basearch/" >> /etc/yum.repos.d/centalt.repo
+	echo "enabled=0" >> /etc/yum.repos.d/centalt.repo
+	echo "gpgcheck=0" >> /etc/yum.repos.d/centalt.repo
 fi
 }
 
@@ -36,6 +36,13 @@ function _removeRepo {
 	fi
 }
 
+function _checkPython {
+	$easy_install = $(which easy_install)
+	
+	if [ ! -f "$easy_install" ]; then
+		yum -y install python-setuptools
+	fi
+}
 #
 #	Proceed with the installation
 #
@@ -57,6 +64,9 @@ if [ "$1" == "install" ]; then
 	
 	echo "... Extract mod_rpaf ..."
 	tar xzfv mod_rpaf-0.6.tar.gz > /dev/null 2>&1	
+	
+	echo "... Check for python-setup tools install ..."
+	_checkPython
 	
 	echo "... Install PyYAML ..."
 	easy_install PyYAML  
