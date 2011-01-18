@@ -41,7 +41,7 @@ function _removeRepo {
 #
 
 if [ "$1" == "install" ]; then 
-	cd /usr/src
+	cd /usr/src/h2nginx
 	
 	echo " h2nginx installer :::::: "
 	
@@ -81,10 +81,3 @@ else
 	echo "# Please select an action to preform :"
 	echo "Usage: sh ./install.sh install | uninstall"
 fi
-
-
-
-
-
-
-

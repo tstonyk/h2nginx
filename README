@@ -7,7 +7,12 @@ This is modification of Blargams nginx installer modified to work with nginx RPM
 First install the nginx via RPM and then run the installer to create reverse-proxying nginx vhosts for all cPanel accounts
 on the server, place cPanel hooks and configure Apache to run on port 8081.
 
+Get the files by cloning the repo :
+cd /usr/src/
+git clone git://github.com/tstonyk/h2nginx.git
+cd /usr/src/h2nginx/
 
+Start the installation by:
 
 ----------- INSTALLL -----------------
 
