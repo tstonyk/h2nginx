@@ -166,11 +166,14 @@ output = proc.communicate()
 
 print "... Inserting bytes_log support to nginx.conf ...."
 bsupport = 'log_format bytes_log "$msec $bytes_sent .";'
-nconf = open ( '/etc/nginx/nginx.conf', 'w')
+nconf = open ( '/etc/nginx/nginx.conf', 'r')
 nlconf = nconf.readlines()
-nlconf.insert( '25', bsupport)
-nconf.writelines( nlconf )
 nconf.close
+
+nlconf.insert( '25', bsupport)
+ngconf = open ( '/etc/nginx/nginx.conf', 'w')
+ngconf.writelines( nlconf )
+ngconf.close
 
 print "Install Apache module mod_rpaf-0.6..."
 proc = subprocess.Popen("/usr/local/apache/bin/apxs -i -c -n mod_rpaf-2.0.so mod_rpaf-2.0.c > /dev/null 2>&1", shell=True, cwd=srcpath + "/mod_rpaf-0.6")

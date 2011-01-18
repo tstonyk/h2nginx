@@ -55,7 +55,7 @@ function _removerpmforge {
 	rm -f /etc/yum.repos.d/rpmforge.repo
 }
 function _checkPython {
-	easy_install = $(which easy_install)
+	easy_install=$(which easy_install)
 	
 	if [ ! -f "$easy_install" ]; then
 		yum -y install python-setuptools > /dev/null 2>&1	
