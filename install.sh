@@ -115,10 +115,10 @@ if [ "$1" == "install" ]; then
 elif [ "$1" == "uninstall" ]; then
 	echo "---- Remove CentALT repository ----"
 	_removeRepo
-	-removerpmforge
+	_removerpmforge
 	
 	echo "---- Remove nginx installation ----"
-	yum remove nginx-stable libyaml
+	yum -y remove nginx-stable libyaml
 	
 	echo " "
 	echo "---- Remove cPanel hooks ----"
