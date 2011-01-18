@@ -51,7 +51,7 @@ function _rpmforge {
 	fi
 }
 function _removerpmforge {
-	echo "... Removing RPMForge installation ..."
+	echo "---- Removing RPMForge installation ----"
 	rm -f /etc/yum.repos.d/rpmforge.repo
 }
 function _checkPython {
@@ -68,9 +68,12 @@ function _checkPython {
 if [ "$1" == "install" ]; then 
 	cd /usr/src/h2nginx
 	
-	echo " h2nginx installer :::::: "
+	echo "#####################################################"
+	echo ""
+	echo "\t\t h2nginx installer "
+	echo "#####################################################"
 	
-	echo ".... Checking for your WHM access hash ...."
+	echo "---- Checking for your WHM access hash ----"
 	if [ ! -f "/root/.accesshash" ]; then
 		echo "You don't have an access hash generated for your account, do enable this please follow the following steps:"
 		echo  "> Login to your WHM"
@@ -80,45 +83,45 @@ if [ "$1" == "install" ]; then
 		exit 1;
 	fi
 	
-	echo "... Proceed with the installation ...."
+	echo "---- Proceed with the installation ----"
 	
 	_addRepo
-	echo "... Let's install nginx firest ...."
+	echo "---- Let's install nginx firest ----"
 	yum -y install --enablerepo=CentALT nginx-stable
 	
 	echo ""
 	echo ""
-	echo " Preparing the installation"
+	echo "-------- Preparing the installation --------"
 	echo " "
-	echo "... Downloading mod rpaf from stderr.net ..." 
+	echo "---- Downloading mod rpaf from stderr.net ----" 
 	wget http://stderr.net/apache/rpaf/download/mod_rpaf-0.6.tar.gz > /dev/null 2>&1	
 	
-	echo "... Extract mod_rpaf ..."
+	echo "---- Extract mod_rpaf ----"
 	tar xzfv mod_rpaf-0.6.tar.gz > /dev/null 2>&1	
 	
-	echo "... Check for python-setup tools install ..."
+	echo "---- Check for python-setup tools install ----"
 	_checkPython
 	
 	echo ""
-	echo "... Install PyYAML ..."
+	echo "---- Install PyYAML ----"
 	_rpmforge
 	yum --enablerepo=rpmforge -y install libyaml > /dev/null 2>&1	
 	easy_install PyYAML  
 	_removerpmforge
 	
-	echo "... Proceed with the installation ..."
+	echo "---- Proceed with the installation ----"
 	/usr/bin/python ./nginxinstaller install
 	
 elif [ "$1" == "uninstall" ]; then
-	echo "... Remove CentALT repository ..."
+	echo "---- Remove CentALT repository ----"
 	_removeRepo
 	-removerpmforge
 	
-	echo "... Remove nginx installation ...."
+	echo "---- Remove nginx installation ----"
 	yum remove nginx-stable libyaml
 	
 	echo " "
-	echo "... Remove cPanel hooks ..."
+	echo "---- Remove cPanel hooks ----"
 	/usr/bin/python ./nginxinstaller uninstall
 	
 else 

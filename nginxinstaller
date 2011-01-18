@@ -160,11 +160,11 @@ import time
 time.sleep(5)
 
 
-print "Generating vhosts..."
+print "---- Generating NGiNX vhosts ----"
 proc = subprocess.Popen("/scripts/createvhosts.py", shell=True, stdout=None)
 output = proc.communicate()
 
-print "... Inserting bytes_log support to nginx.conf ...."
+print "---- Inserting bytes_log support to nginx.conf ----"
 bsupport = '\tlog_format bytes_log "$msec $bytes_sent .";\n'
 nconf = open ( '/etc/nginx/nginx.conf', 'r')
 nlconf = nconf.readlines()
@@ -175,10 +175,10 @@ ngconf = open ( '/etc/nginx/nginx.conf', 'w')
 ngconf.writelines( nlconf )
 ngconf.close
 
-print "Install Apache module mod_rpaf-0.6..."
+print "---- Install Apache module mod_rpaf-0.6... ----"
 proc = subprocess.Popen("/usr/local/apache/bin/apxs -i -c -n mod_rpaf-2.0.so mod_rpaf-2.0.c > /dev/null 2>&1", shell=True, cwd=srcpath + "/mod_rpaf-0.6")
 output = proc.communicate()
 
-print "deploying booster rockets"
+print "---- Proceed to WHM configuration ----"
 proc = subprocess.Popen(currentdir + '/nginxinstaller2 ' + sys.argv[1], shell=True, cwd=currentdir)
 output = proc.communicate()

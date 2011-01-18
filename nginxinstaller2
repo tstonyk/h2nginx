@@ -54,7 +54,7 @@ output = proc.communicate()
 time.sleep(5)
 
 # Removed nginx logrotate script
-print "Adjusting cPanel/Apache ports to :8081"  
+print "---- Adjusting cPanel/Apache ports to :8081 ----"  
 
 proc = subprocess.Popen("sed -i 's/localhost/localhost:8081/g' /etc/init.d/httpd", shell=True)
 output = proc.communicate()
@@ -64,8 +64,9 @@ output = proc.communicate()
 proc = subprocess.Popen("sed -i 's/apache_port=0.0.0.0:80$/apache_port=0.0.0.0:8081/' /var/cpanel/cpanel.config", shell=True)
 output = proc.communicate()
 
-print "Updating cPanel Tweak Setting, please hold to yer pants"
+print "---- Updating cPanel Tweak Setting, please hold to yer pants ----"
 subprocess.Popen("/usr/local/cpanel/whostmgr/bin/whostmgr2 --updatetweaksettings > /dev/null 2>&1", shell=True)
 
 time.sleep(10)
-print " Installation Complete -- run /etc/init.d/nginx restart to start nginx"
+print ""
+print "---- Installation Complete -- run service nginx start to start nginx ----"
