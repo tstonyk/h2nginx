@@ -183,14 +183,15 @@ reg3	=		r'^worker_rlimit_nofile[ \s+].*$'
 reg4	=		r'^worker_connections[ \s+].*$'
 output = []
 for s in nlconf:
-        s1      =       re.sub(reg, 'user nobody;', s)
-        s2      =       re.sub(reg2, 'worker_processes 2;', s1)
-		s3		=		re.sub(reg3, '^worker_rlimit_nofile 65535;', s2)
-		s4		=		re.sub(reg4, 'worker_connections 8192;', s3)
-		_final	= s4
-        output.append(_final)
+	s1      =       re.sub(reg, 'user nobody;', s)
+	s2      =       re.sub(reg2, 'worker_processes 2;', s1)
+	s3		=		re.sub(reg3, '^worker_rlimit_nofile 65535;', s2)
+	s4		=		re.sub(reg4, 'worker_connections 8192;', s3)
+	_final	= s4
+	output.append(_final)
 
-		ngconf = open ( '/etc/nginx/nginx.conf', 'w')
+	
+ngconf = open ( '/etc/nginx/nginx.conf', 'w')
 ngconf.writelines( output )
 ngconf.close
 
