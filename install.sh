@@ -87,7 +87,7 @@ if [ "$1" == "install" ]; then
 	
 	_addRepo
 	echo "---- Let's install nginx firest ----"
-	yum -y install --enablerepo=CentALT nginx-stable
+	yum -y install --enablerepo=CentALT nginx-stable > /dev/null 2>&1
 	
 	echo ""
 	echo ""
@@ -106,7 +106,7 @@ if [ "$1" == "install" ]; then
 	echo "---- Install PyYAML ----"
 	_rpmforge
 	yum --enablerepo=rpmforge -y install libyaml > /dev/null 2>&1	
-	easy_install PyYAML  
+	easy_install PyYAML  > /dev/null 2>&1
 	_removerpmforge
 	
 	echo "---- Proceed with the installation ----"
@@ -118,7 +118,7 @@ elif [ "$1" == "uninstall" ]; then
 	_removerpmforge
 	
 	echo "---- Remove nginx installation ----"
-	yum -y remove nginx-stable libyaml
+	yum -y remove nginx-stable libyaml > /dev/null 2>&1
 	
 	echo " "
 	echo "---- Remove cPanel hooks ----"
