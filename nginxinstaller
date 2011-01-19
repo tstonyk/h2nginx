@@ -177,15 +177,15 @@ nlconf.insert( 37, gzip1)
 # Set user to nobody 
 # limit worker proccess
 print "---- Configure NGiNX -  nginx.conf ----"
-eg     =       r'^user[ \s+].*$'
-reg2    =       r'^worker_processes[ \s+].*$'
-reg3	=		r'^worker_rlimit_nofile[ \s+].*$'
-reg4	=		r'^worker_connections[ \s+].*$'
+reg		=	r'^user[ \s+].*$'
+reg2	=	'^worker_processes[ \s+].*$'
+reg3	=	r'^worker_rlimit_nofile[ \s+].*$'
+reg4	=	r'^worker_connections[ \s+].*$'
 output = []
 for s in nlconf:
 	s1      =       re.sub(reg, 'user nobody;', s)
 	s2      =       re.sub(reg2, 'worker_processes 2;', s1)
-	s3		=		re.sub(reg3, '^worker_rlimit_nofile 65535;', s2)
+	s3		=		re.sub(reg3, 'worker_rlimit_nofile 65535;', s2)
 	s4		=		re.sub(reg4, 'worker_connections 8192;', s3)
 	_final	= s4
 	output.append(_final)
