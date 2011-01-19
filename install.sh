@@ -70,7 +70,7 @@ if [ "$1" == "install" ]; then
 	
 	echo "#####################################################"
 	echo ""
-	echo "\t\t h2nginx installer "
+	echo "				h2nginx installer 					"
 	echo "#####################################################"
 	
 	echo "---- Checking for your WHM access hash ----"
