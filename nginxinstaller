@@ -3,7 +3,7 @@ import subprocess
 import os
 import sys
 import time
-
+import re
 sys.path.append('/scripts/')
 currentdir=os.getcwd()
 
