@@ -69,4 +69,19 @@ subprocess.Popen("/usr/local/cpanel/whostmgr/bin/whostmgr2 --updatetweaksettings
 
 time.sleep(10)
 print ""
-print "---- Installation Complete -- run service nginx start to start nginx ----"
+print "---- Installation Complete --"
+
+print "---- Configuring the new installation and starting the time macheeen -----"
+proc = subprocess.Popen(' chkconfig nginx on', shell=True)
+output = proc.communicate()
+
+print "---- Mixing sugar, spice and everything restarting nice ---- "
+proc = subprocess.Popen('service httpd  restart', shell=True)
+output = proc.communicate()
+time.sleep(10)
+proc = subprocess.Popen('service nginx restart', shell=True)
+output.communicate()
+
+print""
+print "---- Installation completed. All engines running sir. ----"
+
